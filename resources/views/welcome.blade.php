@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="utf-8">
@@ -47,7 +47,11 @@
     ════════════════════════════════════════════════════ --}}
     <header class="flex items-center justify-between gap-2 sm:gap-3 pb-2">
         <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            <span class="text-2xl sm:text-3xl shrink-0" role="img" aria-label="kantin">🍱</span>
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.2);">
+                <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 10a9 9 0 0118 0M3 10v1a9 9 0 0018 0v-1M6 21h12M6 21a2 2 0 01-2-2v-9h16v9a2 2 0 01-2 2H6z"/>
+                </svg>
+            </div>
             <div class="min-w-0">
                 <h1 class="text-lg sm:text-2xl font-extrabold leading-tight tracking-tight truncate">
                     <span class="text-amber-400">E-Kantin</span>
@@ -117,13 +121,16 @@
             {{-- Statistik singkat --}}
             <div class="flex flex-wrap gap-2.5 sm:gap-4 mt-4">
                 <div class="flex items-center gap-1.5 text-xs font-semibold text-orange-100 bg-black/10 px-2.5 py-1 rounded-lg sm:bg-transparent sm:p-0">
-                    <span class="text-base">🍔</span> {{ $menus->count() }} Menu Tersedia
+                    <svg class="w-4 h-4 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    {{ $menus->count() }} Menu Tersedia
                 </div>
                 <div class="flex items-center gap-1.5 text-xs font-semibold text-orange-100 bg-black/10 px-2.5 py-1 rounded-lg sm:bg-transparent sm:p-0">
-                    <span class="text-base">🏪</span> {{ $stands->count() }} Stand Kantin
+                    <svg class="w-4 h-4 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><polyline stroke-linecap="round" stroke-linejoin="round" points="9 22 9 12 15 12 15 22"/></svg>
+                    {{ $stands->count() }} Stand Kantin
                 </div>
                 <div class="flex items-center gap-1.5 text-xs font-semibold text-orange-100 bg-black/10 px-2.5 py-1 rounded-lg sm:bg-transparent sm:p-0">
-                    <span class="text-base">⚡</span> Order Real-time
+                    <svg class="w-4 h-4 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    Order Real-time
                 </div>
             </div>
         </div>
@@ -138,7 +145,9 @@
         {{-- ── BAGIAN 1: DATA PEMESAN ─────────────────────────── --}}
         <div class="rounded-2xl p-4 sm:p-6 shadow-lg" style="background:#131d31;border:1px solid rgba(148,163,184,.1);">
             <h3 class="font-bold text-sm sm:text-base mb-4 sm:mb-5 flex items-center gap-2" style="color:#fbbf24;">
-                <span class="flex items-center justify-center w-7 h-7 rounded-lg text-sm" style="background:rgba(245,158,11,.15);">📋</span>
+                <span class="flex items-center justify-center w-7 h-7 rounded-lg" style="background:rgba(245,158,11,.15);">
+                    <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0M12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                </span>
                 Data Pemesan
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
@@ -174,7 +183,9 @@
                         Nomor WhatsApp <span class="text-red-400">*</span>
                     </label>
                     <div class="relative">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm pointer-events-none" style="color:#64748b;">📱</span>
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <svg class="w-4 h-4" style="color:#64748b;" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        </span>
                         <input type="tel" id="whatsapp" name="whatsapp" required
                                placeholder="Contoh: 08123456789"
                                value="{{ old('whatsapp') }}"
@@ -190,7 +201,9 @@
                         Jam Pengambilan <span class="text-red-400">*</span>
                     </label>
                     <div class="relative">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm pointer-events-none" style="color:#64748b;">🕐</span>
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                            <svg class="w-4 h-4" style="color:#64748b;" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </span>
                         <select id="break_time" name="break_time" required
                                 class="w-full rounded-xl pl-9 pr-10 py-2.5 text-base sm:text-sm text-white appearance-none focus:outline-none transition-colors"
                                 style="background:#0b1324;border:1px solid rgba(71,85,105,.6);"
@@ -208,7 +221,9 @@
         {{-- ── BAGIAN 2: METODE PEMBAYARAN ────────────────────── --}}
         <div class="rounded-2xl p-4 sm:p-6 shadow-lg" style="background:#131d31;border:1px solid rgba(148,163,184,.1);">
             <h3 class="font-bold text-sm sm:text-base mb-3 sm:mb-4 flex items-center gap-2" style="color:#fbbf24;">
-                <span class="flex items-center justify-center w-7 h-7 rounded-lg text-sm" style="background:rgba(245,158,11,.15);">💳</span>
+                <span class="flex items-center justify-center w-7 h-7 rounded-lg" style="background:rgba(245,158,11,.15);">
+                    <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                </span>
                 Metode Pembayaran
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -220,8 +235,9 @@
                     <input type="radio" id="pay_tunai" name="payment_method" value="tunai"
                            class="sr-only" {{ old('payment_method','tunai')=='tunai'?'checked':'' }}
                            onchange="updatePaymentUI()">
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
-                         style="background:rgba(16,185,129,.15);">💵</div>
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.2);">
+                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    </div>
                     <div class="min-w-0 flex-1">
                         <p class="text-sm font-bold text-white leading-snug">Bayar Tunai</p>
                         <p class="text-xs mt-0.5" style="color:#94a3b8;">Bayar langsung saat ambil di kasir</p>
@@ -240,8 +256,9 @@
                     <input type="radio" id="pay_qris" name="payment_method" value="qris"
                            class="sr-only" {{ old('payment_method')=='qris'?'checked':'' }}
                            onchange="updatePaymentUI()">
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
-                         style="background:rgba(99,102,241,.15);">📲</div>
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.2);">
+                        <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    </div>
                     <div class="min-w-0 flex-1">
                         <p class="text-sm font-bold text-white leading-snug">QRIS / Cashless</p>
                         <p class="text-xs mt-0.5" style="color:#94a3b8;">Scan QR code di kasir kantin</p>
@@ -258,7 +275,9 @@
         {{-- ── BAGIAN 3: PILIHAN MENU PER STAND ──────────────── --}}
         <div class="rounded-2xl p-4 sm:p-6 shadow-lg" style="background:#131d31;border:1px solid rgba(148,163,184,.1);">
             <h3 class="font-bold text-sm sm:text-base mb-3 sm:mb-4 flex items-center gap-2" style="color:#fbbf24;">
-                <span class="flex items-center justify-center w-7 h-7 rounded-lg text-sm" style="background:rgba(245,158,11,.15);">🏪</span>
+                <span class="flex items-center justify-center w-7 h-7 rounded-lg" style="background:rgba(245,158,11,.15);">
+                    <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                </span>
                 Pilihan Menu
             </h3>
 
@@ -268,15 +287,15 @@
                         class="tab-btn active px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold border transition-all whitespace-nowrap"
                         style="border-color:rgba(71,85,105,.4);color:#94a3b8;"
                         onclick="switchTab(this, 'all')" role="tab" aria-selected="true">
-                    🍽️ Semua Stand
+                    Semua Stand
                 </button>
                 @foreach($stands as $stand)
                     @php
                         $emoji = match(true) {
-                            str_contains($stand, 'Makanan') => '🍔',
-                            str_contains($stand, 'Minuman') => '🥤',
-                            str_contains($stand, 'Snack')   => '🍿',
-                            default                         => '🏪',
+                            str_contains($stand, 'Makanan') => '',
+                            str_contains($stand, 'Minuman') => '',
+                            str_contains($stand, 'Snack')   => '',
+                            default                         => '',
                         };
                     @endphp
                     <button type="button"
@@ -414,7 +433,9 @@
 
             {{-- Header --}}
             <div class="text-center mb-4 sm:mb-5">
-                <div class="text-4xl sm:text-5xl mb-2">🎉</div>
+                <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3" style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.25);">
+                <svg class="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+            </div>
                 <h2 class="text-base sm:text-lg font-extrabold text-white">Pesanan Masuk!</h2>
                 <p class="text-xs mt-1" style="color:#94a3b8;">Tunjukkan struk ini ke kasir saat mengambil</p>
             </div>
@@ -473,7 +494,7 @@
                     style="background:#d97706;"
                     onmouseover="this.style.backgroundColor='#b45309'"
                     onmouseout="this.style.backgroundColor='#d97706'">
-                Oke, Saya Mengerti! 👍
+                Oke, Mengerti
             </button>
         </div>
     </div>
@@ -609,3 +630,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+

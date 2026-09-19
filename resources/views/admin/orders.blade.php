@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -6,190 +6,175 @@
     <title>Riwayat Pesanan - Admin E-Kantin</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style> body { font-family: 'Plus Jakarta Sans', sans-serif; } </style>
+    <style>
+        * { font-family:'Plus Jakarta Sans',sans-serif; }
+        ::-webkit-scrollbar{width:4px;height:4px}
+        ::-webkit-scrollbar-thumb{background:rgba(148,163,184,.2);border-radius:99px}
+    </style>
 </head>
-<body class="bg-[#f4f5fa] text-slate-800 min-h-screen flex flex-col lg:flex-row antialiased overflow-x-hidden">
+<body class="min-h-screen flex antialiased" style="background:#0b1324;color:#f1f5f9;">
 
-    {{-- SIDEBAR --}}
     @include('admin.partials.sidebar', ['active' => 'orders'])
 
-    {{-- KONTEN UTAMA --}}
-    <main class="flex-1 min-w-0 w-full p-4 sm:p-6 lg:p-8 overflow-y-auto">
+    <div class="flex-1 flex flex-col min-w-0">
 
-        {{-- TOP BAR --}}
-        <header class="flex justify-between items-center mb-6 sm:mb-8 pb-4 border-b border-slate-200 gap-3">
+        <header class="sticky top-0 z-20 px-6 lg:px-8 py-4 flex items-center justify-between gap-4 shrink-0"
+                style="background:rgba(11,19,36,.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(148,163,184,.08);">
             <div class="flex items-center gap-3">
-                <button type="button" onclick="toggleAdminSidebar()"
-                        class="lg:hidden p-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-amber-600 shadow-sm transition"
-                        aria-label="Buka Menu">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
+                <button onclick="toggleAdminSidebar()" class="lg:hidden w-9 h-9 rounded-xl flex items-center justify-center transition"
+                        style="background:rgba(148,163,184,.08);color:#94a3b8;"
+                        onmouseover="this.style.background='rgba(148,163,184,.15)'" onmouseout="this.style.background='rgba(148,163,184,.08)'">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
                 <div>
-                    <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 leading-tight">Riwayat Pesanan</h1>
-                    <p class="text-xs text-slate-400 font-medium mt-0.5">Semua pesanan masuk dari siswa</p>
+                    <h1 class="text-lg font-bold text-white">Riwayat Pesanan</h1>
+                    <p class="text-xs" style="color:#64748b;">Semua pesanan masuk dari siswa</p>
                 </div>
             </div>
-            <div class="flex items-center gap-2 sm:gap-3">
-                <div class="text-right">
-                    <h3 class="text-xs sm:text-sm font-bold text-slate-900 leading-tight">Kasir Kantin</h3>
-                    <span class="text-[10px] text-slate-400 font-medium">Administrator</span>
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:block text-right">
+                    <p class="text-xs font-semibold text-white">Kasir Kantin</p>
+                    <p class="text-[10px]" style="color:#64748b;">Administrator</p>
                 </div>
-                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-amber-500 text-white font-extrabold flex items-center justify-center text-xs sm:text-sm shadow-md shrink-0">K</div>
+                <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-white shrink-0"
+                     style="background:linear-gradient(135deg,#d97706,#f59e0b);">K</div>
             </div>
         </header>
 
-        @if(session('success'))
-            <div class="mb-5 sm:mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-semibold flex items-center gap-2">
-                ✅ {{ session('success') }}
-            </div>
-        @endif
+        <main class="flex-1 p-5 lg:p-8 space-y-6 overflow-y-auto">
 
-        {{-- KARTU STATUS --}}
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-            <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
-                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-100 text-amber-500 flex items-center justify-center text-base sm:text-lg shrink-0">🕒</div>
-                <div class="min-w-0 flex-1">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Pending</p>
-                    <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-tight truncate">{{ $pending }}</p>
+            @if(session('success'))
+                <div class="p-4 rounded-xl text-sm font-semibold flex items-center gap-2"
+                     style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#6ee7b7;">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    {{ session('success') }}
                 </div>
-            </div>
-            <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
-                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-100 text-blue-500 flex items-center justify-center text-base sm:text-lg shrink-0">⚙️</div>
-                <div class="min-w-0 flex-1">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Diproses</p>
-                    <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-tight truncate">{{ $processing }}</p>
-                </div>
-            </div>
-            <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
-                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-100 text-emerald-500 flex items-center justify-center text-base sm:text-lg shrink-0">✅</div>
-                <div class="min-w-0 flex-1">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Siap Ambil</p>
-                    <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-tight truncate">{{ $ready }}</p>
-                </div>
-            </div>
-            <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
-                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center text-base sm:text-lg shrink-0">🏁</div>
-                <div class="min-w-0 flex-1">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Selesai</p>
-                    <p class="text-xl sm:text-2xl font-extrabold text-slate-800 leading-tight truncate">{{ $completed }}</p>
-                </div>
-            </div>
-        </div>
+            @endif
 
-        {{-- FILTER STATUS --}}
-        <div class="flex flex-wrap gap-2 mb-4 overflow-x-auto pb-1">
-            <button onclick="filterStatus('all')" id="btn-all"
-                class="filter-btn px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition border border-amber-500 bg-amber-500 text-white whitespace-nowrap">
-                Semua ({{ $orders->count() }})
-            </button>
-            <button onclick="filterStatus('pending')" id="btn-pending"
-                class="filter-btn px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition border border-slate-200 text-slate-500 bg-white hover:border-amber-400 whitespace-nowrap">
-                🕒 Pending ({{ $pending }})
-            </button>
-            <button onclick="filterStatus('processing')" id="btn-processing"
-                class="filter-btn px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition border border-slate-200 text-slate-500 bg-white hover:border-blue-400 whitespace-nowrap">
-                ⚙️ Diproses ({{ $processing }})
-            </button>
-            <button onclick="filterStatus('ready')" id="btn-ready"
-                class="filter-btn px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition border border-slate-200 text-slate-500 bg-white hover:border-emerald-400 whitespace-nowrap">
-                ✅ Siap Ambil ({{ $ready }})
-            </button>
-            <button onclick="filterStatus('completed')" id="btn-completed"
-                class="filter-btn px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-bold transition border border-slate-200 text-slate-500 bg-white hover:border-slate-400 whitespace-nowrap">
-                🏁 Selesai ({{ $completed }})
-            </button>
-        </div>
+            {{-- STAT CARDS --}}
+            <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
+                @php
+                    $cards = [
+                        ['label'=>'Pending',    'val'=>$pending,    'bg'=>'rgba(245,158,11,.15)',   'bc'=>'rgba(245,158,11,.2)',    'ic'=>'#fbbf24', 'path'=>'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
+                        ['label'=>'Diproses',   'val'=>$processing, 'bg'=>'rgba(56,189,248,.12)',   'bc'=>'rgba(56,189,248,.2)',    'ic'=>'#7dd3fc', 'path'=>'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15'],
+                        ['label'=>'Siap Ambil', 'val'=>$ready,      'bg'=>'rgba(52,211,153,.12)',   'bc'=>'rgba(52,211,153,.2)',    'ic'=>'#6ee7b7', 'path'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'],
+                        ['label'=>'Selesai',    'val'=>$completed,  'bg'=>'rgba(148,163,184,.1)',   'bc'=>'rgba(148,163,184,.15)', 'ic'=>'#94a3b8', 'path'=>'M5 13l4 4L19 7'],
+                    ];
+                @endphp
+                @foreach($cards as $c)
+                <div class="rounded-2xl p-5 flex items-center gap-4" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
+                    <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                         style="background:{{ $c['bg'] }};border:1px solid {{ $c['bc'] }};">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" style="color:{{ $c['ic'] }};">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="{{ $c['path'] }}"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-[11px] font-semibold uppercase tracking-wide" style="color:#64748b;">{{ $c['label'] }}</p>
+                        <p class="text-2xl font-extrabold text-white mt-0.5 leading-none">{{ $c['val'] }}</p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
 
-        {{-- TABEL PESANAN --}}
-        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-            <div class="overflow-x-auto w-full">
-                <table class="w-full text-left text-xs text-slate-600 min-w-[680px]">
-                    <thead class="bg-slate-50 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-100">
-                        <tr>
-                            <th class="p-3.5 sm:p-4">ID</th>
-                            <th class="p-3.5 sm:p-4">Siswa</th>
-                            <th class="p-3.5 sm:p-4">Menu Dipesan</th>
-                            <th class="p-3.5 sm:p-4">Istirahat</th>
-                            <th class="p-3.5 sm:p-4">Total</th>
-                            <th class="p-3.5 sm:p-4">Waktu</th>
-                            <th class="p-3.5 sm:p-4">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-50" id="ordersTableBody">
-                        @forelse($orders as $order)
-                            <tr class="hover:bg-slate-50/70 transition order-row" data-status="{{ $order->status }}">
-                                <td class="p-3.5 sm:p-4 font-bold text-amber-500 whitespace-nowrap">#{{ $order->id }}</td>
-                                <td class="p-3.5 sm:p-4">
-                                    <div class="font-bold text-slate-800">{{ $order->student_name }}</div>
-                                    <div class="text-[10px] text-slate-400 mt-0.5">{{ $order->class_major }}</div>
-                                    <div class="text-[10px] text-slate-400">WA: {{ $order->whatsapp }}</div>
+            {{-- TABLE CARD --}}
+            <div class="rounded-2xl overflow-hidden" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
+
+                {{-- Filter pills --}}
+                <div class="px-5 py-4 flex flex-wrap gap-2" style="border-bottom:1px solid rgba(148,163,184,.08);">
+                    @php
+                        $filters = [
+                            ['id'=>'all',        'label'=>'Semua ('.$orders->count().')'],
+                            ['id'=>'pending',    'label'=>'Pending ('.$pending.')'],
+                            ['id'=>'processing', 'label'=>'Diproses ('.$processing.')'],
+                            ['id'=>'ready',      'label'=>'Siap Ambil ('.$ready.')'],
+                            ['id'=>'completed',  'label'=>'Selesai ('.$completed.')'],
+                        ];
+                    @endphp
+                    @foreach($filters as $f)
+                    <button id="btn-{{ $f['id'] }}"
+                            onclick="filterStatus('{{ $f['id'] }}',this)"
+                            class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold transition whitespace-nowrap"
+                            style="{{ $f['id']==='all' ? 'background:#d97706;color:#fff;border:1px solid #d97706;' : 'background:rgba(148,163,184,.08);color:#94a3b8;border:1px solid rgba(148,163,184,.12);' }}">
+                        {{ $f['label'] }}
+                    </button>
+                    @endforeach
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs min-w-[700px]">
+                        <thead style="background:rgba(11,19,36,.6);border-bottom:1px solid rgba(148,163,184,.08);">
+                            <tr>
+                                @foreach(['ID','Siswa','Menu Dipesan','Istirahat','Total','Waktu','Status'] as $th)
+                                <th class="px-4 py-3 text-left font-semibold uppercase tracking-wide" style="color:#64748b;">{{ $th }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            @forelse($orders as $order)
+                            <tr class="order-row transition" data-status="{{ $order->status }}"
+                                style="border-bottom:1px solid rgba(148,163,184,.05);"
+                                onmouseover="this.style.background='rgba(245,158,11,.03)'"
+                                onmouseout="this.style.background=''">
+                                <td class="px-4 py-3.5 whitespace-nowrap font-bold" style="color:#fbbf24;">#{{ $order->id }}</td>
+                                <td class="px-4 py-3.5">
+                                    <p class="font-semibold text-white">{{ $order->student_name }}</p>
+                                    <p style="color:#64748b;">{{ $order->class_major }}</p>
+                                    <p style="color:#64748b;">WA: {{ $order->whatsapp }}</p>
                                 </td>
-                                <td class="p-3.5 sm:p-4">
-                                    <ul class="space-y-0.5">
-                                        @foreach($order->items as $item)
-                                            <li class="text-[11px] text-slate-600">
-                                                • {{ $item->menu->name ?? 'Menu Dihapus' }}
-                                                <span class="font-extrabold text-amber-500">(×{{ $item->quantity }})</span>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                <td class="px-4 py-3.5">
+                                    @foreach($order->items as $item)
+                                        <p style="color:#cbd5e1;">{{ $item->menu->name ?? '—' }}
+                                            <span class="font-bold" style="color:#fbbf24;">(×{{ $item->quantity }})</span></p>
+                                    @endforeach
                                 </td>
-                                <td class="p-3.5 sm:p-4 font-semibold text-slate-600 whitespace-nowrap">{{ $order->break_time }}</td>
-                                <td class="p-3.5 sm:p-4 font-extrabold text-slate-800 whitespace-nowrap">Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
-                                <td class="p-3.5 sm:p-4 text-slate-400 whitespace-nowrap text-[10px]">
-                                    {{ $order->created_at->format('d/m/Y') }}<br>
-                                    <span class="font-semibold">{{ $order->created_at->format('H:i') }}</span>
+                                <td class="px-4 py-3.5 whitespace-nowrap font-medium" style="color:#cbd5e1;">{{ $order->break_time }}</td>
+                                <td class="px-4 py-3.5 whitespace-nowrap font-bold text-white">Rp {{ number_format($order->total_price,0,',','.') }}</td>
+                                <td class="px-4 py-3.5 whitespace-nowrap" style="color:#94a3b8;">
+                                    <p>{{ $order->created_at->format('d/m/Y') }}</p>
+                                    <p class="font-semibold">{{ $order->created_at->format('H:i') }}</p>
                                 </td>
-                                <td class="p-3.5 sm:p-4 whitespace-nowrap">
-                                    <form action="{{ route('admin.order.update', $order->id) }}" method="POST">
-                                        @csrf
-                                        @method('PATCH')
+                                <td class="px-4 py-3.5 whitespace-nowrap">
+                                    <form action="{{ route('admin.order.update',$order->id) }}" method="POST">
+                                        @csrf @method('PATCH')
                                         <select name="status" onchange="this.form.submit()"
-                                                class="bg-slate-50 border border-slate-200 text-[10px] font-bold rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-amber-500 cursor-pointer text-slate-600">
-                                            <option value="pending"    {{ $order->status == 'pending'    ? 'selected' : '' }}>🕒 Pending</option>
-                                            <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>⚙️ Proses</option>
-                                            <option value="ready"      {{ $order->status == 'ready'      ? 'selected' : '' }}>✅ Ready</option>
-                                            <option value="completed"  {{ $order->status == 'completed'  ? 'selected' : '' }}>🏁 Selesai</option>
+                                                class="rounded-lg text-[11px] px-2.5 py-1.5 focus:outline-none cursor-pointer transition"
+                                                style="background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.15);color:#cbd5e1;">
+                                            <option value="pending"    {{ $order->status=='pending'   ?'selected':'' }} style="background:#131d31;">Pending</option>
+                                            <option value="processing" {{ $order->status=='processing'?'selected':'' }} style="background:#131d31;">Proses</option>
+                                            <option value="ready"      {{ $order->status=='ready'     ?'selected':'' }} style="background:#131d31;">Ready</option>
+                                            <option value="completed"  {{ $order->status=='completed' ?'selected':'' }} style="background:#131d31;">Selesai</option>
                                         </select>
                                     </form>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="p-10 text-center text-slate-400">
-                                    <div class="text-4xl mb-2">📭</div>
-                                    Belum ada pesanan masuk.
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                            @empty
+                            <tr><td colspan="7" class="px-4 py-14 text-center text-sm" style="color:#475569;">
+                                <svg class="w-10 h-10 mx-auto mb-3" style="color:#334155;" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                                </svg>
+                                Belum ada pesanan masuk.
+                            </td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-
-    </main>
+        </main>
+    </div>
 
     <script>
-        function filterStatus(status) {
-            // Update tombol aktif
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-amber-500', 'text-white', 'border-amber-500');
-                btn.classList.add('bg-white', 'text-slate-500', 'border-slate-200');
+        function filterStatus(status, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.style.background = 'rgba(148,163,184,.08)';
+                b.style.color = '#94a3b8';
+                b.style.borderColor = 'rgba(148,163,184,.12)';
             });
-            const activeBtn = document.getElementById('btn-' + status);
-            if (activeBtn) {
-                activeBtn.classList.add('bg-amber-500', 'text-white', 'border-amber-500');
-                activeBtn.classList.remove('bg-white', 'text-slate-500', 'border-slate-200');
-            }
-            // Filter baris tabel
-            document.querySelectorAll('.order-row').forEach(row => {
-                if (status === 'all' || row.dataset.status === status) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+            btn.style.background = '#d97706';
+            btn.style.color = '#fff';
+            btn.style.borderColor = '#d97706';
+            document.querySelectorAll('.order-row').forEach(r => {
+                r.style.display = (status === 'all' || r.dataset.status === status) ? '' : 'none';
             });
         }
     </script>
