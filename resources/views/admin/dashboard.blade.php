@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -67,7 +67,7 @@
             <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 fade-up">
 
                 {{-- Pesanan Baru --}}
-                <div class="rounded-2xl p-5 flex items-center gap-4 transition hover:scale-[1.01]"
+                <div class="rounded-2xl p-5 flex items-center gap-4 transition-all duration-200 hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-lg cursor-pointer select-none"
                      style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
                     <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
                          style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.2);">
@@ -82,7 +82,7 @@
                 </div>
 
                 {{-- Pendapatan --}}
-                <div class="rounded-2xl p-5 flex items-center gap-4 transition hover:scale-[1.01]"
+                <div class="rounded-2xl p-5 flex items-center gap-4 transition-all duration-200 hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-lg cursor-pointer select-none"
                      style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
                     <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
                          style="background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.2);">
@@ -99,7 +99,7 @@
                 </div>
 
                 {{-- Total Menu --}}
-                <div class="rounded-2xl p-5 flex items-center gap-4 transition hover:scale-[1.01]"
+                <div class="rounded-2xl p-5 flex items-center gap-4 transition-all duration-200 hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-lg cursor-pointer select-none"
                      style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
                     <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
                          style="background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.2);">
@@ -114,7 +114,7 @@
                 </div>
 
                 {{-- Siswa Order --}}
-                <div class="rounded-2xl p-5 flex items-center gap-4 transition hover:scale-[1.01]"
+                <div class="rounded-2xl p-5 flex items-center gap-4 transition-all duration-200 hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-lg cursor-pointer select-none"
                      style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
                     <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
                          style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.2);">
