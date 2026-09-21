@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +12,8 @@
         ::-webkit-scrollbar-thumb{background:rgba(148,163,184,.2);border-radius:99px}
         @keyframes popIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
         .pop-in{animation:popIn .2s ease-out both}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        .fade-up{animation:fadeUp .3s ease-out both}
         input,select,textarea{color-scheme:dark}
     </style>
 </head>
@@ -50,21 +52,21 @@
         <main class="flex-1 p-5 lg:p-8 space-y-6 overflow-y-auto">
 
             @if(session('success'))
-                <div class="p-4 rounded-xl text-sm font-semibold flex items-center gap-2"
+                <div class="p-4 rounded-xl text-sm font-semibold flex items-center gap-2 fade-up"
                      style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#6ee7b7;">
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     {{ session('success') }}
                 </div>
             @endif
             @if($errors->any())
-                <div class="p-4 rounded-xl text-sm" style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#fca5a5;">
+                <div class="p-4 rounded-xl text-sm fade-up" style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#fca5a5;">
                     <p class="font-bold mb-1">Mohon perbaiki:</p>
                     @foreach($errors->all() as $e)<p>• {{ $e }}</p>@endforeach
                 </div>
             @endif
 
             {{-- STAT CARDS --}}
-            <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 fade-up">
                 @php
                     $statCards = [
                         ['label'=>'Total Menu',  'val'=>$menus->count(),                              'bg'=>'rgba(148,163,184,.1)',  'bc'=>'rgba(148,163,184,.15)', 'ic'=>'#94a3b8', 'path'=>'M4 6h16M4 10h16M4 14h16M4 18h16'],
@@ -74,7 +76,7 @@
                     ];
                 @endphp
                 @foreach($statCards as $sc)
-                <div class="rounded-2xl p-5 flex items-center gap-4" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
+                <div class="rounded-2xl p-5 flex items-center gap-4 transition-all duration-200 hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-lg cursor-pointer select-none" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
                     <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
                          style="background:{{ $sc['bg'] }};border:1px solid {{ $sc['bc'] }};">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" style="color:{{ $sc['ic'] }};">
@@ -90,7 +92,7 @@
             </div>
 
             {{-- TABLE CARD --}}
-            <div class="rounded-2xl overflow-hidden" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
+            <div class="rounded-2xl overflow-hidden fade-up" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
 
                 {{-- Filter + count --}}
                 <div class="px-5 py-4 flex flex-wrap items-center justify-between gap-3" style="border-bottom:1px solid rgba(148,163,184,.08);">

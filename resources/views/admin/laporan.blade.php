@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,8 @@
         * { font-family:'Plus Jakarta Sans',sans-serif; }
         ::-webkit-scrollbar{width:4px;height:4px}
         ::-webkit-scrollbar-thumb{background:rgba(148,163,184,.2);border-radius:99px}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        .fade-up{animation:fadeUp .3s ease-out both}
     </style>
 </head>
 <body class="min-h-screen flex antialiased" style="background:#0b1324;color:#f1f5f9;">
@@ -44,8 +46,8 @@
         <main class="flex-1 p-5 lg:p-8 space-y-6 overflow-y-auto">
 
             {{-- STAT CARDS --}}
-            <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
-                <div class="rounded-2xl p-5 flex items-center gap-4" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
+            <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 fade-up">
+                <div class="rounded-2xl p-5 flex items-center gap-4 transition-all duration-200 hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-lg cursor-pointer select-none" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
                     <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.2);">
                         <svg class="w-5 h-5" style="color:#6ee7b7;" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -56,7 +58,7 @@
                         <p class="text-base font-extrabold mt-0.5 truncate" style="color:#6ee7b7;">Rp {{ number_format($totalPendapatan,0,',','.') }}</p>
                     </div>
                 </div>
-                <div class="rounded-2xl p-5 flex items-center gap-4" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
+                <div class="rounded-2xl p-5 flex items-center gap-4 transition-all duration-200 hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-lg cursor-pointer select-none" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
                     <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.2);">
                         <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
@@ -67,7 +69,7 @@
                         <p class="text-2xl font-extrabold text-white mt-0.5 leading-none">{{ $totalPesanan }}</p>
                     </div>
                 </div>
-                <div class="rounded-2xl p-5 flex items-center gap-4" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
+                <div class="rounded-2xl p-5 flex items-center gap-4 transition-all duration-200 hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-lg cursor-pointer select-none" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
                     <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.2);">
                         <svg class="w-5 h-5" style="color:#7dd3fc;" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
@@ -78,7 +80,7 @@
                         <p class="text-2xl font-extrabold text-white mt-0.5 leading-none">{{ $pesananSelesai }}</p>
                     </div>
                 </div>
-                <div class="rounded-2xl p-5 flex items-center gap-4" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
+                <div class="rounded-2xl p-5 flex items-center gap-4 transition-all duration-200 hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-lg cursor-pointer select-none" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
                     <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.2);">
                         <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -92,7 +94,7 @@
             </div>
 
             {{-- CHARTS --}}
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 fade-up">
 
                 {{-- Bar chart pendapatan --}}
                 <div class="rounded-2xl overflow-hidden" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
@@ -168,7 +170,7 @@
 
             {{-- TABEL DETAIL --}}
             @if($dailyRevenue->isNotEmpty())
-            <div class="rounded-2xl overflow-hidden" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
+            <div class="rounded-2xl overflow-hidden fade-up" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
                 <div class="px-6 py-4" style="border-bottom:1px solid rgba(148,163,184,.08);">
                     <h3 class="text-sm font-semibold text-white">Detail Pendapatan Harian</h3>
                 </div>
