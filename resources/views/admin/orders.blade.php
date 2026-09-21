@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,8 @@
         * { font-family:'Plus Jakarta Sans',sans-serif; }
         ::-webkit-scrollbar{width:4px;height:4px}
         ::-webkit-scrollbar-thumb{background:rgba(148,163,184,.2);border-radius:99px}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        .fade-up{animation:fadeUp .3s ease-out both}
     </style>
 </head>
 <body class="min-h-screen flex antialiased" style="background:#0b1324;color:#f1f5f9;">
@@ -44,7 +46,7 @@
         <main class="flex-1 p-5 lg:p-8 space-y-6 overflow-y-auto">
 
             @if(session('success'))
-                <div class="p-4 rounded-xl text-sm font-semibold flex items-center gap-2"
+                <div class="p-4 rounded-xl text-sm font-semibold flex items-center gap-2 fade-up"
                      style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#6ee7b7;">
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     {{ session('success') }}
@@ -52,7 +54,7 @@
             @endif
 
             {{-- STAT CARDS --}}
-            <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 fade-up">
                 @php
                     $cards = [
                         ['label'=>'Pending',    'val'=>$pending,    'bg'=>'rgba(245,158,11,.15)',   'bc'=>'rgba(245,158,11,.2)',    'ic'=>'#fbbf24', 'path'=>'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
@@ -62,7 +64,7 @@
                     ];
                 @endphp
                 @foreach($cards as $c)
-                <div class="rounded-2xl p-5 flex items-center gap-4" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
+                <div class="rounded-2xl p-5 flex items-center gap-4 transition-all duration-200 hover:scale-[1.02] hover:-translate-y-0.5 hover:shadow-lg cursor-pointer select-none" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
                     <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
                          style="background:{{ $c['bg'] }};border:1px solid {{ $c['bc'] }};">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" style="color:{{ $c['ic'] }};">
@@ -78,7 +80,7 @@
             </div>
 
             {{-- TABLE CARD --}}
-            <div class="rounded-2xl overflow-hidden" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
+            <div class="rounded-2xl overflow-hidden fade-up" style="background:#131d31;border:1px solid rgba(148,163,184,.08);">
 
                 {{-- Filter pills --}}
                 <div class="px-5 py-4 flex flex-wrap gap-2" style="border-bottom:1px solid rgba(148,163,184,.08);">
