@@ -227,9 +227,9 @@
                 Metode Pembayaran
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {{-- Tunai --}}
+                {{-- Tunai --}} 
                 <label for="pay_tunai"
-                       class="payment-label flex items-center gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl cursor-pointer transition-all border"
+                       class="payment-label flex items-center gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-[1.01] border"
                        style="border-color:rgba(71,85,105,.4);background:rgba(11,19,36,.6);"
                        data-value="tunai">
                     <input type="radio" id="pay_tunai" name="payment_method" value="tunai"
@@ -250,7 +250,7 @@
 
                 {{-- QRIS --}}
                 <label for="pay_qris"
-                       class="payment-label flex items-center gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl cursor-pointer transition-all border"
+                       class="payment-label flex items-center gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-[1.01] border"
                        style="border-color:rgba(71,85,105,.4);background:rgba(11,19,36,.6);"
                        data-value="qris">
                     <input type="radio" id="pay_qris" name="payment_method" value="qris"
@@ -313,7 +313,7 @@
                 @foreach($menusByStand as $standName => $items)
                     @foreach($items as $item)
                         @php $orderable = $item->isOrderable(); @endphp
-                        <div class="menu-card rounded-2xl p-3.5 sm:p-4 flex items-center justify-between gap-3 sm:gap-4 transition-all duration-200"
+                        <div class="menu-card rounded-2xl p-3.5 sm:p-4 flex items-center justify-between gap-3 sm:gap-4 transition-all duration-200 hover:scale-[1.01] hover:border-amber-500/30 hover:shadow-lg"
                              data-stand="{{ Str::slug($standName) }}"
                              style="background:rgba(11,19,36,.7);border:1px solid rgba(148,163,184,.1);">
 
