@@ -111,6 +111,15 @@ class AdminController extends Controller
         return back()->with('success', "Menu \"{$name}\" berhasil dihapus.");
     }
 
+    public function destroyAllMenus()
+    {
+        $count = Menu::count();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        Menu::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        return back()->with('success', "Semua {$count} menu berhasil dihapus.");
+    }
+
     public function toggleMenuStatus(string $id)
     {
         $menu = Menu::findOrFail($id);

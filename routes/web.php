@@ -14,6 +14,7 @@ Route::patch('/admin/order/{id}', [AdminController::class, 'updateStatus'])->nam
 Route::get('/admin/menu', [AdminController::class, 'menu'])->name('admin.menu');
 Route::post('/admin/menu', [AdminController::class, 'storeMenu'])->name('admin.menu.store');
 Route::put('/admin/menu/{id}', [AdminController::class, 'updateMenu'])->name('admin.menu.update');
+Route::delete('/admin/menu', [AdminController::class, 'destroyAllMenus'])->name('admin.menu.destroyAll');
 Route::delete('/admin/menu/{id}', [AdminController::class, 'destroyMenu'])->name('admin.menu.destroy');
 Route::patch('/admin/menu/{id}/toggle', [AdminController::class, 'toggleMenuStatus'])->name('admin.menu.toggle');
 Route::get('/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');

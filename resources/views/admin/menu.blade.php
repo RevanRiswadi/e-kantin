@@ -37,6 +37,15 @@
                 </div>
             </div>
             <div class="flex items-center gap-3">
+                @if($menus->count() > 0)
+                <button onclick="openModal('modalHapusSemua')"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition shadow-lg"
+                        style="background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.25);"
+                        onmouseover="this.style.background='rgba(239,68,68,.3)'" onmouseout="this.style.background='rgba(239,68,68,.15)'">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    Hapus Semua
+                </button>
+                @endif
                 <button onclick="openModal('modalTambah')"
                         class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition shadow-lg"
                         style="background:#d97706;"
@@ -372,11 +381,39 @@
         </div>
     </div>
 
+    {{-- ── MODAL HAPUS SEMUA ──────────────────────────────── --}}
+    <div id="modalHapusSemua" class="fixed inset-0 z-50 hidden items-center justify-center p-4"
+         style="background:rgba(0,0,0,.7);backdrop-filter:blur(8px);"
+         onclick="closeModalOutside(event,'modalHapusSemua')">
+        <div class="pop-in w-full max-w-sm rounded-2xl p-6 text-center" style="background:#131d31;border:1px solid rgba(239,68,68,.3);">
+            <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                 style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);">
+                <svg class="w-8 h-8" style="color:#f87171;" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/>
+                </svg>
+            </div>
+            <h2 class="text-base font-bold text-white mb-1">Hapus Semua Menu?</h2>
+            <p class="text-sm mb-3" style="color:#94a3b8;">Seluruh <span class="font-bold" style="color:#f87171;">{{ $menus->count() }} menu</span> akan dihapus permanen.</p>
+            <p class="text-xs mb-5 px-2" style="color:#64748b;">⚠ Tindakan ini <strong style="color:#f87171;">tidak dapat dibatalkan</strong>. Semua data menu akan hilang selamanya.</p>
+            <div class="flex gap-3">
+                <button onclick="closeModal('modalHapusSemua')"
+                        class="flex-1 py-2.5 rounded-xl text-sm font-semibold transition"
+                        style="background:rgba(148,163,184,.08);color:#94a3b8;border:1px solid rgba(148,163,184,.12);"
+                        onmouseover="this.style.background='rgba(148,163,184,.15)'" onmouseout="this.style.background='rgba(148,163,184,.08)'">Batal</button>
+                <form action="{{ route('admin.menu.destroyAll') }}" method="POST" class="flex-1">
+                    @csrf @method('DELETE')
+                    <button type="submit" class="w-full py-2.5 rounded-xl text-sm font-bold text-white transition"
+                            style="background:#dc2626;" onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#dc2626'">Ya, Hapus Semua</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         function openModal(id) { const el=document.getElementById(id); el.classList.remove('hidden'); el.classList.add('flex'); }
         function closeModal(id) { const el=document.getElementById(id); el.classList.add('hidden'); el.classList.remove('flex'); }
         function closeModalOutside(e,id) { if(e.target.id===id) closeModal(id); }
-        document.addEventListener('keydown', e => { if(e.key==='Escape') ['modalTambah','modalEdit','modalHapus'].forEach(closeModal); });
+        document.addEventListener('keydown', e => { if(e.key==='Escape') ['modalTambah','modalEdit','modalHapus','modalHapusSemua'].forEach(closeModal); });
 
         function openEdit(id,name,category,stand,price,stock,available) {
             document.getElementById('editForm').action = `/admin/menu/${id}`;
