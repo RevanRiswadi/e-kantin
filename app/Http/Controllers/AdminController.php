@@ -138,6 +138,16 @@ class AdminController extends Controller
         return view('admin.orders', compact('orders', 'pending', 'processing', 'ready', 'completed'));
     }
 
+    public function destroyAllOrders()
+    {
+        $count = Order::count();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::table('order_items')->truncate();
+        DB::table('orders')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        return back()->with('success', "Semua {$count} pesanan berhasil dihapus.");
+    }
+
     public function laporan()
     {
         // Pendapatan per hari (7 hari terakhir)
