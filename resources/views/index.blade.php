@@ -51,7 +51,7 @@
                             class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-amber-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1.5">Kelas & Jurusan</label>
+                        <label class="block text-xs font-medium text-slate-300 mb-1.5">Kelas & Jurusan </label>
                         <input type="text" name="class_major" required placeholder="Contoh: X PPLG 1" 
                             class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-amber-500">
                     </div>
