@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="utf-8">
@@ -113,7 +113,7 @@
                 Sistem Buka Setiap Hari Sekolah
             </span>
             <h2 class="text-xl sm:text-3xl md:text-4xl font-extrabold text-white mb-2 leading-tight">
-                Pesan Duluan,<br class="sm:hidden"> Bebas Antre! 🚀
+                Pesan Duluan,<br class="sm:hidden"> Bebas Antre! <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="inline-block align-middle mb-1" style="width:1em;height:1em;"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.818a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .845-.143Z" clip-rule="evenodd" /></svg>
             </h2>
             <p class="text-orange-100 text-xs sm:text-base max-w-xl">
                 Order sekarang, tinggal ambil pas istirahat — tanpa antri panjang!

@@ -28,7 +28,7 @@
         
         <!-- Hero Section -->
         <div class="bg-gradient-to-r from-amber-600 to-amber-700 rounded-2xl p-5 sm:p-8 text-white shadow-xl">
-            <h2 class="text-xl sm:text-3xl font-extrabold mb-2 leading-tight">Pesan Duluan, Bebas Antre! 🚀</h2>
+            <h2 class="text-xl sm:text-3xl font-extrabold mb-2 leading-tight">Pesan Duluan, Bebas Antre! <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="inline-block align-middle mb-1" style="width:1em;height:1em;"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.818a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .845-.143Z" clip-rule="evenodd" /></svg></h2>
             <p class="text-amber-100 text-xs sm:text-base">Pesan makanan & minuman favoritmu sebelum jam istirahat. Ambil di kantin tanpa perlu berdesakan.</p>
         </div>
 
