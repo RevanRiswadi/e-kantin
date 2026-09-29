@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
     <title>E-Kantin SMKN 1 Ciomas</title>
+    <link rel="icon" href="data:,">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -317,21 +318,34 @@
                              data-stand="{{ Str::slug($standName) }}"
                              style="background:rgba(11,19,36,.7);border:1px solid rgba(148,163,184,.1);">
 
-                            {{-- Info Menu --}}
-                            <div class="flex-1 min-w-0">
-                                <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap mb-1">
-                                    <h4 class="font-bold text-white text-xs sm:text-sm leading-snug">{{ $item->name }}</h4>
-                                    {{-- Badge stok --}}
-                                    @if($item->stockLabel())
-                                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border {{ $item->stockColor() }}">
-                                            {{ $item->stockLabel() }}
-                                        </span>
-                                    @endif
+                            {{-- Gambar Menu & Info --}}
+                            <div class="flex items-center gap-3 sm:gap-3.5 min-w-0 flex-1">
+                                @if($item->image_url)
+                                    <img src="{{ $item->image_url }}" alt="{{ $item->name }}" loading="lazy"
+                                         class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover shrink-0 border border-slate-700/60 shadow-sm">
+                                @else
+                                    <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center shrink-0 text-xl sm:text-2xl"
+                                         style="background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.12);">
+                                        {{ $item->category === 'makanan' ? '🍱' : '🥤' }}
+                                    </div>
+                                @endif
+
+                                {{-- Info Menu --}}
+                                <div class="min-w-0 flex-1">
+                                    <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap mb-1">
+                                        <h4 class="font-bold text-white text-xs sm:text-sm leading-snug">{{ $item->name }}</h4>
+                                        {{-- Badge stok --}}
+                                        @if($item->stockLabel())
+                                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border {{ $item->stockColor() }}">
+                                                {{ $item->stockLabel() }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <p class="font-bold text-xs" style="color:#fbbf24;">
+                                        Rp {{ number_format($item->price, 0, ',', '.') }}
+                                    </p>
+                                    <p class="text-[10px] mt-0.5" style="color:#64748b;">{{ $standName }}</p>
                                 </div>
-                                <p class="font-bold text-xs" style="color:#fbbf24;">
-                                    Rp {{ number_format($item->price, 0, ',', '.') }}
-                                </p>
-                                <p class="text-[10px] mt-0.5" style="color:#64748b;">{{ $standName }}</p>
                             </div>
 
                             {{-- Kontrol Qty / Habis --}}

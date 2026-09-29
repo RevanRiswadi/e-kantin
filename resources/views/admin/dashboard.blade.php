@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Admin E-Kantin</title>
+    <link rel="icon" href="data:,">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -313,16 +314,26 @@
                                 </td>
                                 <td class="px-4 py-3.5 whitespace-nowrap font-bold text-white">Rp {{ number_format($order->total_price,0,',','.') }}</td>
                                 <td class="px-4 py-3.5 whitespace-nowrap">
-                                    <form action="{{ route('admin.order.update',$order->id) }}" method="POST">
-                                        @csrf @method('PATCH')
-                                        <select name="status" onchange="this.form.submit()"
-                                                class="rounded-lg text-xs px-2.5 py-1.5 focus:outline-none transition cursor-pointer"
-                                                style="background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.15);color:#cbd5e1;">
-                                            @foreach(['pending'=>'Pending','processing'=>'Proses','ready'=>'Ready','completed'=>'Selesai'] as $v=>$l)
-                                            <option value="{{ $v }}" {{ $order->status==$v?'selected':'' }} style="background:#131d31;">{{ $l }}</option>
-                                            @endforeach
-                                        </select>
-                                    </form>
+                                    <div class="flex items-center gap-2">
+                                        <form action="{{ route('admin.order.update',$order->id) }}" method="POST">
+                                            @csrf @method('PATCH')
+                                            <select name="status" onchange="this.form.submit()"
+                                                    class="rounded-lg text-xs px-2.5 py-1.5 focus:outline-none transition cursor-pointer"
+                                                    style="background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.15);color:#cbd5e1;">
+                                                @foreach(['pending'=>'Pending','processing'=>'Proses','ready'=>'Ready','completed'=>'Selesai'] as $v=>$l)
+                                                <option value="{{ $v }}" {{ $order->status==$v?'selected':'' }} style="background:#131d31;">{{ $l }}</option>
+                                                @endforeach
+                                            </select>
+                                        </form>
+                                        <a href="{{ $order->wa_notification_url }}" target="_blank"
+                                           class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition"
+                                           style="background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(16,185,129,.3);"
+                                           onmouseover="this.style.background='rgba(16,185,129,.25)'" onmouseout="this.style.background='rgba(16,185,129,.15)'"
+                                           title="Kirim notifikasi WhatsApp ke {{ $order->student_name }}">
+                                            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.983.538 1.838.78 2.791.78h.002c3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.588-5.766-5.77-5.766zm3.385 8.163c-.144.404-.836.774-1.171.823-.335.05-.774.072-2.518-.654-1.956-.816-3.189-2.822-3.286-2.951-.097-.129-.785-1.042-.785-1.988 0-.946.495-1.411.671-1.604.176-.193.384-.242.512-.242.128 0 .256.002.368.007.118.006.277-.044.433.332.162.391.554 1.352.602 1.45.049.098.082.213.016.342-.066.13-.099.21-.197.324-.098.114-.207.255-.296.342-.098.098-.201.205-.087.401.114.197.507.836 1.088 1.354.75.669 1.382.876 1.579.974.197.098.312.082.427-.049.115-.131.492-.572.623-.768.131-.197.262-.164.442-.098.18.066 1.144.539 1.341.637.197.098.328.147.377.23.049.082.049.475-.095.879z"/></svg>
+                                            <span>WA</span>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                             @empty

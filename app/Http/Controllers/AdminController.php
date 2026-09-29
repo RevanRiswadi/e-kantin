@@ -6,6 +6,7 @@ use App\Models\Menu;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -64,13 +65,20 @@ class AdminController extends Controller
             'price'        => 'required|integer|min:500',
             'stock'        => 'nullable|integer|min:0',
             'is_available' => 'nullable|boolean',
+            'image'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('menus', 'public');
+        }
 
         Menu::create([
             'name'         => $request->name,
             'category'     => $request->category,
             'stand'        => $request->stand,
             'price'        => $request->price,
+            'image'        => $imagePath,
             'stock'        => $request->stock ?: null,
             'is_available' => $request->boolean('is_available', true),
         ]);
@@ -89,16 +97,31 @@ class AdminController extends Controller
             'price'        => 'required|integer|min:500',
             'stock'        => 'nullable|integer|min:0',
             'is_available' => 'nullable|boolean',
+            'image'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        $menu->update([
+        $data = [
             'name'         => $request->name,
             'category'     => $request->category,
             'stand'        => $request->stand,
             'price'        => $request->price,
             'stock'        => $request->stock ?: null,
             'is_available' => $request->boolean('is_available', true),
-        ]);
+        ];
+
+        if ($request->boolean('remove_image')) {
+            if ($menu->image && Storage::disk('public')->exists($menu->image)) {
+                Storage::disk('public')->delete($menu->image);
+            }
+            $data['image'] = null;
+        } elseif ($request->hasFile('image')) {
+            if ($menu->image && Storage::disk('public')->exists($menu->image)) {
+                Storage::disk('public')->delete($menu->image);
+            }
+            $data['image'] = $request->file('image')->store('menus', 'public');
+        }
+
+        $menu->update($data);
 
         return back()->with('success', "Menu \"{$menu->name}\" berhasil diperbarui!");
     }
@@ -107,6 +130,9 @@ class AdminController extends Controller
     {
         $menu = Menu::findOrFail($id);
         $name = $menu->name;
+        if ($menu->image && Storage::disk('public')->exists($menu->image)) {
+            Storage::disk('public')->delete($menu->image);
+        }
         $menu->delete();
         return back()->with('success', "Menu \"{$name}\" berhasil dihapus.");
     }

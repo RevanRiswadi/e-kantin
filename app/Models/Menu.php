@@ -3,10 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Menu extends Model
 {
     protected $fillable = ['name', 'category', 'stand', 'price', 'image', 'stock', 'is_available'];
+
+    /** URL gambar menu atau null */
+    public function getImageUrlAttribute(): ?string
+    {
+        if ($this->image && Storage::disk('public')->exists($this->image)) {
+            return asset('storage/' . $this->image);
+        }
+        return null;
+    }
 
     /** Apakah menu masih bisa dipesan (tersedia + stok > 0 atau stok tidak dibatasi) */
     public function isOrderable(): bool

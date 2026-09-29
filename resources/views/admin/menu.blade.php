@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Menu - Admin E-Kantin</title>
+    <link rel="icon" href="data:,">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -135,7 +136,22 @@
                                 onmouseover="this.style.background='rgba(245,158,11,.03)'"
                                 onmouseout="this.style.background=''">
                                 <td class="px-4 py-3.5 font-bold whitespace-nowrap" style="color:#fbbf24;">#{{ $item->id }}</td>
-                                <td class="px-4 py-3.5 font-semibold text-white">{{ $item->name }}</td>
+                                <td class="px-4 py-3.5">
+                                    <div class="flex items-center gap-3">
+                                        @if($item->image_url)
+                                            <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="w-10 h-10 rounded-xl object-cover shrink-0 border border-slate-700/60 shadow-sm">
+                                        @else
+                                            <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-base"
+                                                 style="background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.12);">
+                                                {{ $item->category === 'makanan' ? '🍱' : '🥤' }}
+                                            </div>
+                                        @endif
+                                        <div class="min-w-0">
+                                            <p class="font-semibold text-white leading-snug truncate">{{ $item->name }}</p>
+                                            <p class="text-[11px] lg:hidden mt-0.5" style="color:#64748b;">{{ $item->stand }}</p>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td class="px-4 py-3.5 text-xs" style="color:#94a3b8;">{{ $item->stand }}</td>
                                 <td class="px-4 py-3.5 whitespace-nowrap">
                                     @if($item->category==='makanan')
@@ -167,7 +183,7 @@
                                 </td>
                                 <td class="px-4 py-3.5 whitespace-nowrap">
                                     <div class="flex items-center gap-2">
-                                        <button onclick="openEdit({{ $item->id }},@json($item->name),'{{ $item->category }}',@json($item->stand),{{ $item->price }},{{ $item->stock??'null' }},{{ $item->is_available?'true':'false' }})"
+                                        <button onclick="openEdit({{ $item->id }},@json($item->name),'{{ $item->category }}',@json($item->stand),{{ $item->price }},{{ $item->stock??'null' }},{{ $item->is_available?'true':'false' }},@json($item->image_url))"
                                                 class="w-8 h-8 rounded-lg flex items-center justify-center transition"
                                                 style="background:rgba(56,189,248,.1);color:#7dd3fc;border:1px solid rgba(56,189,248,.15);"
                                                 onmouseover="this.style.background='rgba(56,189,248,.2)'" onmouseout="this.style.background='rgba(56,189,248,.1)'"
@@ -212,15 +228,28 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
-            <form action="{{ route('admin.menu.store') }}" method="POST" class="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
+            <form action="{{ route('admin.menu.store') }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
                 @csrf
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="sm:col-span-2">
+                        <label class="block text-xs font-semibold mb-1.5" style="color:#94a3b8;">Foto Menu <span class="font-normal" style="color:#475569;">(opsional, maks 2MB)</span></label>
+                        <div class="flex items-center gap-4">
+                            <div id="addPreviewBox" class="w-16 h-16 rounded-xl flex items-center justify-center shrink-0 overflow-hidden border border-dashed border-slate-700 bg-slate-900/60 text-slate-500">
+                                <svg class="w-6 h-6 opacity-60" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <input type="file" name="image" id="add_image" accept="image/jpeg,image/png,image/webp" onchange="previewUpload(this, 'addPreviewBox')"
+                                       class="block w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-amber-500/10 file:text-amber-400 hover:file:bg-amber-500/20 cursor-pointer">
+                                <p class="text-[10px] mt-1" style="color:#64748b;">Format: JPG, PNG, WEBP. Maksimal 2MB.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold mb-1.5" style="color:#94a3b8;">Nama Menu <span style="color:#f87171;">*</span></label>
                         <input type="text" name="name" required placeholder="Contoh: Nasi Goreng Spesial" value="{{ old('name') }}"
-                               class="w-full rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none transition"
-                               style="background:rgba(11,19,36,.8);border:1px solid rgba(71,85,105,.5);"
-                               onfocus="this.style.borderColor='#f59e0b'" onblur="this.style.borderColor='rgba(71,85,105,.5)'">
+                                class="w-full rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none transition"
+                                style="background:rgba(11,19,36,.8);border:1px solid rgba(71,85,105,.5);"
+                                onfocus="this.style.borderColor='#f59e0b'" onblur="this.style.borderColor='rgba(71,85,105,.5)'">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold mb-1.5" style="color:#94a3b8;">Kategori <span style="color:#f87171;">*</span></label>
@@ -235,9 +264,9 @@
                     <div>
                         <label class="block text-xs font-semibold mb-1.5" style="color:#94a3b8;">Stand <span style="color:#f87171;">*</span></label>
                         <input type="text" name="stand" required placeholder="Contoh: Stand 1" value="{{ old('stand') }}" list="standList"
-                               class="w-full rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none transition"
-                               style="background:rgba(11,19,36,.8);border:1px solid rgba(71,85,105,.5);"
-                               onfocus="this.style.borderColor='#f59e0b'" onblur="this.style.borderColor='rgba(71,85,105,.5)'">
+                                class="w-full rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none transition"
+                                style="background:rgba(11,19,36,.8);border:1px solid rgba(71,85,105,.5);"
+                                onfocus="this.style.borderColor='#f59e0b'" onblur="this.style.borderColor='rgba(71,85,105,.5)'">
                         <datalist id="standList">@foreach($stands as $s)<option value="{{ $s }}">@endforeach</datalist>
                     </div>
                     <div>
@@ -289,9 +318,25 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
-            <form id="editForm" action="" method="POST" class="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
+            <form id="editForm" action="" method="POST" enctype="multipart/form-data" class="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
                 @csrf @method('PUT')
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-semibold mb-1.5" style="color:#94a3b8;">Foto Menu <span class="font-normal" style="color:#475569;">(opsional, maks 2MB)</span></label>
+                        <div class="flex items-center gap-4">
+                            <div id="editPreviewBox" class="w-16 h-16 rounded-xl flex items-center justify-center shrink-0 overflow-hidden border border-slate-700 bg-slate-900/60 text-slate-500">
+                                <svg class="w-6 h-6 opacity-60" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+                            </div>
+                            <div class="flex-1 min-w-0 space-y-2">
+                                <input type="file" name="image" id="edit_image" accept="image/jpeg,image/png,image/webp" onchange="previewUpload(this, 'editPreviewBox')"
+                                       class="block w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-500/10 file:text-blue-400 hover:file:bg-blue-500/20 cursor-pointer">
+                                <div id="editRemoveImageWrap" class="hidden items-center gap-2">
+                                    <input type="checkbox" name="remove_image" id="edit_remove_image" value="1" class="w-3.5 h-3.5 rounded cursor-pointer" style="accent-color:#ef4444;">
+                                    <label for="edit_remove_image" class="text-[11px] text-red-400 cursor-pointer select-none">Hapus foto menu saat ini</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold mb-1.5" style="color:#94a3b8;">Nama Menu <span style="color:#f87171;">*</span></label>
                         <input type="text" id="edit_name" name="name" required
@@ -415,7 +460,19 @@
         function closeModalOutside(e,id) { if(e.target.id===id) closeModal(id); }
         document.addEventListener('keydown', e => { if(e.key==='Escape') ['modalTambah','modalEdit','modalHapus','modalHapusSemua'].forEach(closeModal); });
 
-        function openEdit(id,name,category,stand,price,stock,available) {
+        function previewUpload(input, boxId) {
+            const box = document.getElementById(boxId);
+            if (!box) return;
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    box.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover">`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function openEdit(id,name,category,stand,price,stock,available,imageUrl) {
             document.getElementById('editForm').action = `/admin/menu/${id}`;
             document.getElementById('edit_name').value     = name;
             document.getElementById('edit_category').value = category;
@@ -423,6 +480,23 @@
             document.getElementById('edit_price').value    = price;
             document.getElementById('edit_stock').value    = stock !== null ? stock : '';
             document.getElementById('edit_avail').checked  = available;
+            document.getElementById('edit_image').value    = '';
+
+            const previewBox = document.getElementById('editPreviewBox');
+            const removeWrap = document.getElementById('editRemoveImageWrap');
+            const removeChk  = document.getElementById('edit_remove_image');
+            if (removeChk) removeChk.checked = false;
+
+            if (imageUrl) {
+                previewBox.innerHTML = `<img src="${imageUrl}" class="w-full h-full object-cover">`;
+                if (removeWrap) removeWrap.classList.remove('hidden');
+                if (removeWrap) removeWrap.classList.add('flex');
+            } else {
+                previewBox.innerHTML = `<svg class="w-6 h-6 opacity-60" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>`;
+                if (removeWrap) removeWrap.classList.add('hidden');
+                if (removeWrap) removeWrap.classList.remove('flex');
+            }
+
             openModal('modalEdit');
         }
         function openHapus(id,name) {
